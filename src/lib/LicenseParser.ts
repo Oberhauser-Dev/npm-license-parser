@@ -13,12 +13,13 @@ export default class LicenseParser {
 
   public async parse(): Promise<LicenseItem[]> {
     return new Promise((resolve, reject) => {
-      const callBack = (error: any, res: any) => {
+      const callBack = async (error: any, res: any) => {
         if (error) {
           return reject(error);
         } else {
           let licenses = Object.keys(res).map((key: any) => this.extractData(stripAnsi(key), res[key]));
           licenses = this.sortDataByKey(licenses, 'username');
+          await this.json(licenses);
           return resolve(licenses);
         }
       };
@@ -26,9 +27,9 @@ export default class LicenseParser {
     });
   }
 
-  public async json(path: string) {
-    const json = JSON.stringify(await this.parse());
-    await fs.writeFile(path, json);
+  private async json(licenses: any) {
+    const json = JSON.stringify(licenses);
+    await fs.writeFile(this.options.json || 'licences.json', json);
   }
 
   private extractNameFromGithubUrl(url: string): any {

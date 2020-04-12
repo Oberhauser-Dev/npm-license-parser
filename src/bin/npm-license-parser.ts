@@ -5,11 +5,7 @@ import {CrawlerOptions} from "npm-license-crawler";
 import LicenseParser from "../lib/LicenseParser.js";
 
 const options: CrawlerOptions = {
-  //exclude: ['.'],
-  //json: 'licenses.json',
-  //start: ['../..'],
   start: ['./'],
-  //unknown: true,
 };
 
 clear();
@@ -34,5 +30,6 @@ if (program.exclude) options.exclude = program.exclude;
 if (program.onlyDirectDependencies) options.onlyDirectDependencies = true;
 if (program.production) options.production = true;
 if (program.start) options.start = program.start;
+if (program.json) options.json = program.json;
 const parser = new LicenseParser(options);
-if (program.json) parser.json(program.json);
+parser.parse();

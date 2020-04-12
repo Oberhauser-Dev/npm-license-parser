@@ -4,7 +4,7 @@ export default class LicenseParser {
     private options;
     constructor(options: CrawlerOptions);
     parse(): Promise<LicenseItem[]>;
-    json(path: string): Promise<void>;
+    private json;
     private extractNameFromGithubUrl;
     private sortDataByKey;
     private capitalizeFirstLetter;
