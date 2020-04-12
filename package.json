@@ -2,13 +2,18 @@
   "name": "npm-license-parser",
   "version": "0.0.1",
   "description": "Parse infos and licenses of npm dependencies to json format for displaying",
-  "main": "build/main/index.js",
-  "typings": "build/main/index.d.ts",
+  "main": "build/module/index.js",
+  "bin": {
+    "npm-license-parser": "build/module/bin/npm-license-parser.js"
+  },
+  "typings": "build/module/index.d.ts",
   "module": "build/module/index.js",
+  "type": "module",
   "repository": "https://github.com/Oberhauser-Dev/npm-license-parser",
   "license": "MIT",
   "keywords": [],
   "scripts": {
+    "start": "npm run build && npm run global",
     "describe": "npm-scripts-info",
     "build": "run-s clean && run-p build:*",
     "build:main": "tsc -p tsconfig.json",
@@ -17,6 +22,7 @@
     "fix:prettier": "prettier \"src/**/*.ts\" --write",
     "fix:tslint": "tslint --fix --project .",
     "test": "run-s build test:*",
+    "global": "npm i -g",
     "test:lint": "tslint --project . && prettier \"src/**/*.ts\" --list-different",
     "test:unit": "nyc --silent ava",
     "watch": "run-s clean build:main && run-p \"build:main -- -w\" \"test:unit -- --watch\"",
@@ -50,13 +56,17 @@
     "node": ">=8.9"
   },
   "dependencies": {
-    "@types/npm-license-crawler": "^0.1.0",
+    "clear": "^0.1.0",
+    "commander": "^5.0.0",
     "npm-license-crawler": "^0.2.1",
     "strip-ansi": "^6.0.0"
   },
   "devDependencies": {
     "@bitjson/npm-scripts-info": "^1.0.0",
     "@bitjson/typedoc": "^0.15.0-0",
+    "@types/clear": "^0.1.0",
+    "@types/node": "^13.11.1",
+    "@types/npm-license-crawler": "^0.1.0",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
     "@typescript-eslint/parser": "^2.27.0",
     "eslint": "^6.8.0",

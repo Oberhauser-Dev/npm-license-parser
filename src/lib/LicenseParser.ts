@@ -1,6 +1,7 @@
 import crawler, {CrawlerOptions} from 'npm-license-crawler';
 import LicenseItem from "./LicenseItem";
 import stripAnsi from 'strip-ansi';
+import {promises as fs} from 'fs';
 
 export default class LicenseParser {
 
@@ -23,6 +24,11 @@ export default class LicenseParser {
       };
       crawler.dumpLicenses(this.options, callBack);
     });
+  }
+
+  public async json(path: string) {
+    const json = JSON.stringify(await this.parse());
+    await fs.writeFile(path, json);
   }
 
   private extractNameFromGithubUrl(url: string): any {

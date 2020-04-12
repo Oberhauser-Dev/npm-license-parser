@@ -1,4 +1,4 @@
-import LicenseParser from "./LicenseParser";
+import LicenseParser from "../LicenseParser";
 
 const options = {
   //exclude: ['.'],
@@ -9,4 +9,5 @@ const options = {
   //unknown: true,
 };
 const parser = new LicenseParser(options);
-parser.parse();
+//parser.parse();
+parser.json('dependencyLicenses.json');
