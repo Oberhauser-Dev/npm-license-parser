@@ -9,4 +9,4 @@ const options = {
   //unknown: true,
 };
 const parser = new LicenseParser(options);
-parser.parse();
+await parser.parse();
